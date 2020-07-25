@@ -1,0 +1,41 @@
+{{define "content"}}
+<h1 class="mb-3">Transactions</h1>
+
+<table class="table table-hover">
+	<thead>
+	<tr>
+		<th scope="col">#</th>
+		<th scope="col">Name</th>
+		<th scope="col">Times</th>
+		<th scope="col">Cost</th>
+		<th scope="col">Result</th>
+		<th scope="col">CreateAt</th>
+		<th scope="col">RetryAt</th>
+	</tr>
+	</thead>
+	<tbody>
+	{{range .transactions}}
+		<tr>
+			<th><a href="/transaction/{{.ID}}">{{.ID}}</a></th>
+			<td>{{.Name}}</td>
+			<td>{{.Times}}</td>
+			<td>{{.Cost | toSeconds}}s</td>
+			<td class="result_{{.Result}}">{{.Result | default "-"}}</td>
+			<td>{{.CreateAt}}</td>
+			<td>{{.RetryAt}}</td>
+		</tr>
+	{{else}}
+		<tr>
+			<td colspan="7">No transaction yet.</td>
+		</tr>
+	{{end}}
+	</tbody>
+</table>
+
+<nav aria-label="Page navigation">
+	<ul class="pagination">
+		<li class="page-item {{if not .pagePrevious}}disabled{{end}}"><a class="page-link" href="?page={{.pagePrevious}}">Previous</a></li>
+		<li class="page-item {{if not .pageNext}}disabled{{end}}"><a class="page-link" href="?page={{.pageNext}}">Next</a></li>
+	</ul>
+</nav>
+{{end}}
