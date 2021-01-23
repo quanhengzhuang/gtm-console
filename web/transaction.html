@@ -8,11 +8,39 @@
 	</thead>
 	<tbody>
 		<tr> <th>Name</th> <td>{{.transaction.Name}}</td> </tr>
-		<tr> <th>CreateAt</th> <td>{{.transaction.CreateAt}}</td> </tr>
+		<tr> <th>CreateAt</th> <td>{{.transaction.CreatedAt}}</td> </tr>
 		<tr> <th>RetryAt</th> <td>{{.transaction.RetryAt}}</td> </tr>
 		<tr> <th>Times</th> <td>{{.transaction.Times}}</td> </tr>
 		<tr> <th>Cost</th> <td>{{.transaction.Cost | toSeconds}}s</td> </tr>
 		<tr> <th>Result</th> <td class="result_{{.Result}}">{{.Result | default "-"}}</td> </tr>
+	</tbody>
+</table>
+
+<h3>Partner Results</h3>
+<table class="table table-hover">
+	<thead>
+	<tr>
+		<th scope="col">Phase</th>
+		<th scope="col">Offset</th>
+		<th scope="col">Cost</th>
+		<th scope="col">Result</th>
+		<th scope="col">CreatedAt</th>
+	</tr>
+	</thead>
+	<tbody>
+	{{range .partnerResults}}
+		<tr>
+			<td>{{.Phase}}</td>
+			<td>{{.Offset}}</td>
+			<td>{{.Cost | toSeconds}}s</td>
+			<td class="result_{{.Result}}">{{.Result | default "-"}}</td>
+			<td>{{.CreatedAt}}</td>
+		</tr>
+	{{else}}
+		<tr>
+			<td colspan="5">No partner result yet.</td>
+		</tr>
+	{{end}}
 	</tbody>
 </table>
 

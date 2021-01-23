@@ -1,0 +1,6 @@
+[http]
+port = 8080
+
+[db_storage]
+type = "mysql"
+dsn = "root:root1234@/gtm?charset=utf8&parseTime=True&loc=Local"

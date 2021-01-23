@@ -9,7 +9,7 @@
 		<th scope="col">Times</th>
 		<th scope="col">Cost</th>
 		<th scope="col">Result</th>
-		<th scope="col">CreateAt</th>
+		<th scope="col">CreatedAt</th>
 		<th scope="col">RetryAt</th>
 	</tr>
 	</thead>
@@ -21,7 +21,7 @@
 			<td>{{.Times}}</td>
 			<td>{{.Cost | toSeconds}}s</td>
 			<td class="result_{{.Result}}">{{.Result | default "-"}}</td>
-			<td>{{.CreateAt}}</td>
+			<td>{{.CreatedAt}}</td>
 			<td>{{.RetryAt}}</td>
 		</tr>
 	{{else}}
