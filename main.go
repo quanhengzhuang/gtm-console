@@ -14,12 +14,12 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/julienschmidt/httprouter"
-	"github.com/quanhengzhuang/gtm-console/pkg/storage"
+	"github.com/quanhengzhuang/gtm-console/pkg/storages"
 	"github.com/spf13/viper"
 )
 
 var (
-	s storage.ConsoleStorage
+	storage storages.ConsoleStorage
 )
 
 var (
@@ -42,7 +42,7 @@ func main() {
 	}
 	db.LogMode(true)
 
-	s = storage.NewDBConsoleStorage(db)
+	storage = storages.NewDBConsoleStorage(db)
 
 	router := httprouter.New()
 	router.GET("/", makeHandler(transactions))
@@ -74,7 +74,7 @@ func transactions(r *http.Request, _ httprouter.Params) (content []byte, err err
 	pageNum, _ := strconv.Atoi(page)
 	pageSize := 50
 
-	transactions, err := s.GetTransactions(pageNum, pageSize)
+	transactions, err := storage.GetTransactions(pageNum, pageSize)
 	if err != nil {
 		return nil, fmt.Errorf("get transactions failed: %v", err)
 	}
@@ -100,12 +100,12 @@ func transaction(r *http.Request, ps httprouter.Params) (content []byte, err err
 		return nil, fmt.Errorf("id parse failed: %v", err)
 	}
 
-	transaction, err := s.GetTransaction(id)
+	transaction, err := storage.GetTransaction(id)
 	if err != nil {
 		return nil, fmt.Errorf("get transaction failed: %v", err)
 	}
 
-	partnerResults, err := s.GetPartnerResults(transaction.ID)
+	partnerResults, err := storage.GetPartnerResults(transaction.ID)
 	if err != nil {
 		return nil, fmt.Errorf("get partner results failed: %v", err)
 	}
